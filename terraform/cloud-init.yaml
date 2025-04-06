@@ -1,0 +1,38 @@
+#cloud-config
+
+# Set hostname and Fully Qualified Domain Name
+hostname: ${hostname}
+
+# sets the configured 'hostname' into /etc/hosts
+manage_etc_hosts: true
+
+# Run 'apt-get update' on first boot
+apt_update: true
+
+# Run 'apt-get upgrade' on first boot
+apt_upgrade: true
+
+# Reboot after package install/upgrade if needed (e.g. if kernel update)
+apt_reboot_if_required: true
+
+# Add users to the system. Users are added after groups are added.
+users:
+  - default
+  - name: ${username}
+    gecos: puppet admin
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    lock_passwd: false
+    passwd: ${passwd}
+    ssh_authorized_keys:
+      - ${ssh_key}
+
+# Set the timezone for this instance
+timezone: America/New_York
+
+# Log all cloud-init process output (info & errors) to a logfile
+output: {all: ">> /var/log/cloud-init-output.log"}
+
+# Written to log when cloud-init processes are finished
+final_message: "System boot (via cloud-init) is COMPLETE, after $UPTIME seconds. Finished at $TIMESTAMP"
