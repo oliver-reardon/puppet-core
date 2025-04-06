@@ -4,6 +4,12 @@ This repository contains Terraform code to deploy a Puppet master and a configur
 
 > If using macOS to create the cloud-init data: macOS does not have `mkpasswd`. To create SHA of the local user password `docker run -it --rm alpine mkpasswd -m sha-512`
 
+## Features
++ Deploys a Puppet master EC2 instance with SSH access and cloud-init user setup.
++ Optionally deploys one or more Puppet agent nodes using a scalable count pattern.
++ Attaches Elastic IP to the Puppet master for static public access.
++ Secure by default: SSH and Puppet ports restricted to configurable CIDRs.
+
 ## Requirements
 
 | Name | Version |
